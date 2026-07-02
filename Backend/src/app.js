@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: "zedex-nine.vercel.app",
+    origin: "https://zedex-nine.vercel.app",
     methods: [ "GET", "POST", "PUT", "DELETE" ],
     credentials: true
 }))
