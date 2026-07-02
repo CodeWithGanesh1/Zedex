@@ -8,7 +8,7 @@ import Home from "../features/products/pages/Home";
 import ProductDetail from "../features/products/pages/ProductDetail";
 import SellerProductDetails from "../features/products/pages/SellerProductDetails";
 import Cart from "../features/cart/pages/Cart";
-import AppLayout from "./AppLayout";
+import AppLayout from "../app/AppLayout";
 import OrderSuccess from "../features/cart/pages/OrderSuccess";
 import Orders from "../features/cart/pages/Orders";
 import OrderDetail from "../features/cart/pages/OrderDetail";
