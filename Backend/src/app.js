@@ -16,10 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: "https://zedex-nine.vercel.app",
-    methods: [ "GET", "POST", "PUT", "DELETE" ],
-    credentials: true
-}))
+  origin: ["https://zedex-nine.vercel.app"],
+  credentials: true,
+}));
 
 
 app.use(passport.initialize());

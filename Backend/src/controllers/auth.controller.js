@@ -11,7 +11,12 @@ async function sendTokenResponse(user, res, message) {
         expiresIn: "7d"
     })
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,          // HTTPS ke liye
+  sameSite: "none",      // Cross-site cookies allow
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+});
 
     res.status(200).json({
         message,
@@ -102,9 +107,14 @@ export const googleCallback = async (req, res) => {
         expiresIn: "7d"
     })
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+});
 
-    res.redirect("http://localhost:5173/")
+    res.redirect("https://zedex-nine.vercel.app//")
 }
 
 export const getMe = async (req, res) => {
