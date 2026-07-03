@@ -102,9 +102,14 @@ export const googleCallback = async (req, res) => {
         expiresIn: "7d"
     })
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+});
 
-    res.redirect("http://localhost:5173/")
+    res.redirect("https://zedex-roan.vercel.app")
 }
 
 export const getMe = async (req, res) => {
