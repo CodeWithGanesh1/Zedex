@@ -104,7 +104,7 @@ export const googleCallback = async (req, res) => {
 
     res.cookie("token", token)
 
-    res.redirect("https://zedex-mu.vercel.app/")
+    res.redirect("http://localhost:5173/")
 }
 
 export const getMe = async (req, res) => {
