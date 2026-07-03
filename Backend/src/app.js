@@ -15,10 +15,24 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://zedex-mu.vercel.app",
+    "https://zedex-git-main-ganeshs-projects-761b96d7.vercel.app"
+];
+
 app.use(cors({
-origin: ["http://localhost:5173", "https://zedex-mu.vercel.app"],    methods: [ "GET", "POST", "PUT", "DELETE" ],
+    origin: function (origin, callback) {
+        // Agar request local ho, allowedOrigins me ho, ya koi bhi Vercel subdomain ho
+        if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    methods: [ "GET", "POST", "PUT", "DELETE" ],
     credentials: true
-}))
+}));
 
 
 app.use(passport.initialize());
