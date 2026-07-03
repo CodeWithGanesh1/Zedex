@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BACKEND_URL = import.meta.env.PROD 
-    ? "https://zedex-1.onrender.com" 
+    ? "https://zedex-2.onrender.com" 
     : "";
 
 const productApiInstance = axios.create({
