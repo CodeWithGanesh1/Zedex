@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from "../hook/useAuth";
-import { useNavigate } from "react-router";
+import { useNavigate,Link } from "react-router";
 import ContinueWithGoogle from '../components/ContinueWithGoogle';
 
 const Login = () => {
@@ -215,18 +215,19 @@ const Login = () => {
                             <ContinueWithGoogle />
 
                             {/* Footer Link */}
-                            <p className="text-center text-[11px]" style={{ color: '#B5ADA3' }}>
-                                Don&apos;t have an account?{' '}
-                                <a
-                                    href="/register"
-                                    className="transition-colors duration-200"
-                                    style={{ color: '#7A6E63', textDecoration: 'underline', textUnderlineOffset: '3px' }}
-                                    onMouseEnter={e => e.target.style.color = '#C9A96E'}
-                                    onMouseLeave={e => e.target.style.color = '#7A6E63'}
-                                >
-                                    Sign up
-                                </a>
-                            </p>
+                            {/* Footer Link */}
+<p className="text-center text-[11px]" style={{ color: '#B5ADA3' }}>
+    Don&apos;t have an account?{' '}
+    <Link
+        to="/register"
+        className="transition-colors duration-200"
+        style={{ color: '#7A6E63', textDecoration: 'underline', textUnderlineOffset: '3px' }}
+        onMouseEnter={e => e.target.style.color = '#C9A96E'}
+        onMouseLeave={e => e.target.style.color = '#7A6E63'}
+    >
+        Sign up
+    </Link>
+</p>
                         </form>
                     </div>
                 </div>
