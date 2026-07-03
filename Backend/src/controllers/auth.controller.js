@@ -108,6 +108,8 @@ export const googleCallback = async (req, res) => {
   sameSite: "None",
   maxAge: 7 * 24 * 60 * 60 * 1000,
 });
+console.log("JWT_SECRET:", config.JWT_SECRET);
+console.log("Generated Token:", token);
 
     res.redirect("https://zedex-roan.vercel.app")
 }
