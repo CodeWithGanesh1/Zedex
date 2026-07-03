@@ -4,12 +4,9 @@ const BACKEND_URL = import.meta.env.PROD
     ? "https://zedex-1.onrender.com" 
     : "";
 
-const cartApiInstance = axios.create({
-    baseURL: `${BACKEND_URL}/api/cart`,  
-    withCredentials: true,
-})
-
-
+const response = await axios.post(`${BACKEND_URL}/api/cart`, data, {
+    withCredentials: true
+});
 
 export const addItem = async ({ productId, variantId }) => {
     const response = await cartApiInstance.post(`/add/${productId}/${variantId}`, {
