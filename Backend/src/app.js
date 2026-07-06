@@ -16,19 +16,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: [
-                         
-        'https://zedex-mu.vercel.app',           
-        'https://zedex-roan.vercel.app',         
-        'https://zedex-git-main-ganeshs-projects-761b96d7.vercel.app' 
-    ],
-    credentials: true, 
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
-}));
-
-// Safe side ke liye, CORS pre-flight response ko global handle karne ke liye 
-// is cors() middleware ke theek niche ye chota sa code bhi jod do:
-app.options('*', cors());
+    origin: "https://zedex-roan.vercel.app",
+    methods: [ "GET", "POST", "PUT", "DELETE" ],
+    credentials: true
+}))
 
 
 app.use(passport.initialize());
