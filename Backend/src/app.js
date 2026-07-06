@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
     origin: [
-        'http://localhost:5173',                 
+                         
         'https://zedex-mu.vercel.app',           
         'https://zedex-roan.vercel.app',         
         'https://zedex-git-main-ganeshs-projects-761b96d7.vercel.app' 
