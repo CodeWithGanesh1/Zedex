@@ -17,16 +17,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
     origin: [
-        'http://localhost:5173',
-        'http://localhost:3000',
-        'https://zedex-mu.vercel.app',
-        'https://zedex-roan.vercel.app', // Tumhara current live domain
-        'https://zedex-git-main-ganeshs-projects-761b96d7.vercel.app',
-        'https://zedex-jfizb1h1h-ganeshs-projects-761b96d7.vercel.app'
+        'http://localhost:5173',                 
+        'https://zedex-mu.vercel.app',           
+        'https://zedex-roan.vercel.app',         
+        'https://zedex-git-main-ganeshs-projects-761b96d7.vercel.app' 
     ],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // 👈 'PATCH' yahan hona hi chahiye!
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"]
+    credentials: true, 
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
 }));
 
 // Safe side ke liye, CORS pre-flight response ko global handle karne ke liye 
