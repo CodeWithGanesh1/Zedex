@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, Link } from 'react-router'
-// 👑 FIXED: Purana direct axios import hatakar apni api file se function import kiya
-import { getOrderDetailsApi } from '../../api/cart' // <-- Apne folder structure ke hisab se path sahi kar lena (e.g., ../api/cart ya jahan bhi tumhari file hai)
+import axios from 'axios'
 
 const tokens = {
     surface: '#fbf9f6',
@@ -31,14 +30,11 @@ const OrderSuccess = () => {
     useEffect(() => {
         const fetchPayment = async () => {
             try {
-                // 👑 FIXED: Ab ye Vercel par nahi, seedhe tumhare Render backend par hit karega
-                const data = await getOrderDetailsApi(orderId);
-                
-                if (data && data.success) {
-                    setPayment(data.payment)
-                } else if (data) {
-                    // Fallback: Agar backend direct object bhej raha ho bina payment key ke
-                    setPayment(data)
+                const res = await axios.get(`/api/cart/payment/order/${orderId}`, {
+                    withCredentials: true
+                })
+                if (res.data.success) {
+                    setPayment(res.data.payment)
                 }
             } catch (err) {
                 console.error("Payment fetch failed:", err)
@@ -46,12 +42,7 @@ const OrderSuccess = () => {
                 setLoading(false)
             }
         }
-        
-        if (orderId && orderId !== "SN-00000") {
-            fetchPayment()
-        } else {
-            setLoading(false)
-        }
+        fetchPayment()
     }, [orderId])
 
     // Arrival estimate - order date se 3-5 din baad
@@ -68,7 +59,7 @@ const OrderSuccess = () => {
             style: 'currency',
             currency,
             maximumFractionDigits: 0
-        }).format(amount || 0)
+        }).format(amount)
     }
 
     return (
@@ -135,15 +126,14 @@ const OrderSuccess = () => {
                                     <>
                                         {/* ✅ Real order items */}
                                         <div className="space-y-6">
-                                            {/* 👑 FIXED: Added safe navigation optional chaining (?.) and fallback empty array to prevent rendering crashes */}
-                                            {(payment.orderItems || payment.items || []).map((item, index) => (
+                                            {payment.orderItems.map((item, index) => (
                                                 <div key={index} className="flex gap-6 items-center">
                                                     <div className="w-24 h-32 flex-shrink-0 overflow-hidden" style={{ backgroundColor: tokens.surfaceHigh }}>
-                                                        {item.images?.[0]?.url || item.productId?.images?.[0]?.url || item.image ? (
+                                                        {item.images?.[0]?.url ? (
                                                             <img
                                                                 className="w-full h-full object-cover grayscale-[20%]"
-                                                                src={item.images?.[0]?.url || item.productId?.images?.[0]?.url || item.image}
-                                                                alt={item.title || item.name}
+                                                                src={item.images[0].url}
+                                                                alt={item.title}
                                                             />
                                                         ) : (
                                                             <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: tokens.muted }}>
@@ -153,7 +143,7 @@ const OrderSuccess = () => {
                                                     </div>
                                                     <div className="flex-grow space-y-1">
                                                         <h4 className="text-lg" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                                                            {item.title || item.name || item.productId?.name}
+                                                            {item.title}
                                                         </h4>
                                                         {item.quantity > 1 && (
                                                             <p className="text-sm uppercase tracking-tighter" style={{ color: tokens.outline }}>
@@ -161,7 +151,7 @@ const OrderSuccess = () => {
                                                             </p>
                                                         )}
                                                         <p className="font-semibold mt-2">
-                                                            {formatPrice(item.price?.amount || item.price, item.price?.currency)}
+                                                            {formatPrice(item.price?.amount, item.price?.currency)}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -172,7 +162,7 @@ const OrderSuccess = () => {
                                         <div className="space-y-4 pt-4" style={{ borderTop: `1px solid ${tokens.outlineVariant}` }}>
                                             <div className="flex justify-between text-sm uppercase tracking-widest" style={{ color: tokens.secondary }}>
                                                 <span>Subtotal</span>
-                                                <span>{formatPrice(payment.price?.amount || payment.totalAmount || payment.price, payment.price?.currency)}</span>
+                                                <span>{formatPrice(payment.price?.amount, payment.price?.currency)}</span>
                                             </div>
                                             <div className="flex justify-between text-sm uppercase tracking-widest" style={{ color: tokens.secondary }}>
                                                 <span>Shipping</span>
@@ -181,7 +171,7 @@ const OrderSuccess = () => {
                                             <div className="flex justify-between text-lg pt-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                                                 <span>Total</span>
                                                 <span style={{ color: tokens.primaryDark }}>
-                                                    {formatPrice(payment.price?.amount || payment.totalAmount || payment.price, payment.price?.currency)}
+                                                    {formatPrice(payment.price?.amount, payment.price?.currency)}
                                                 </span>
                                             </div>
                                         </div>
@@ -211,8 +201,13 @@ const OrderSuccess = () => {
                                     <h3 className="text-xl italic" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                                         Shipping Address
                                     </h3>
+                                    {/* 
+                                        ⚠️ Agar tumhare user model mein address hai toh 
+                                        payment.user se populate karke yahan show kar sakte ho.
+                                        Abhi ke liye placeholder rakha hai.
+                                    */}
                                     <p className="leading-relaxed uppercase tracking-tighter text-sm" style={{ color: tokens.onSurfaceVariant }}>
-                                        {payment?.shippingAddress?.addressLine1 || "Address on file"}
+                                        Address on file
                                     </p>
                                 </div>
 
@@ -251,4 +246,4 @@ const OrderSuccess = () => {
     )
 }
 
-export default OrderSuccess;
+export default OrderSuccess

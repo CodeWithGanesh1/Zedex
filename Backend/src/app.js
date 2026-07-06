@@ -15,41 +15,15 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 app.use(cors({
-    origin: function (origin, callback) {
-        // Agar local development ho ya bina origin ke request ho (jaise Postman)
-        if (!origin || origin.startsWith('http://localhost:')) {
-            return callback(null, true);
-        }
-        // Agar request kisi bhi Vercel link se aa rahi ho
-        if (origin.endsWith('.vercel.app')) {
-            return callback(null, true);
-        }
-        callback(new Error('Not allowed by CORS'));
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"]
-}));
-
-
-app.use((req, res, next) => {
-    const origin = req.headers.origin;
-    
-    if (origin && (origin.startsWith('http://localhost:') || origin.endsWith('.vercel.app'))) {
-        res.header("Access-Control-Allow-Origin", origin);
-    }
-    
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept");
-
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(200);
-    }
-    next();
-});
+origin: [
+        'https://zedex-mu.vercel.app',
+        'https://zedex-roan.vercel.app', 
+        'https://zedex-git-main-ganeshs-projects-761b96d7.vercel.app',
+        'https://zedex-jfizb1h1h-ganeshs-projects-761b96d7.vercel.app'
+    ],    methods: [ "GET", "POST", "PUT", "DELETE","OPTIONS" ],
+    credentials: true
+}))
 
 
 app.use(passport.initialize());
