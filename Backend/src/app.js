@@ -15,9 +15,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-const cors = require('cors');
 
-// 1. Standard CORS configuration
 app.use(cors({
     origin: function (origin, callback) {
         // Agar local development ho ya bina origin ke request ho (jaise Postman)
