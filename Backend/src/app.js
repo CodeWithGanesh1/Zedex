@@ -16,8 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: "https://zedex-roan.vercel.app",
-    methods: [ "GET", "POST", "PUT", "DELETE" ],
+origin: [
+        'https://zedex-mu.vercel.app',
+        'https://zedex-roan.vercel.app', 
+        'https://zedex-git-main-ganeshs-projects-761b96d7.vercel.app',
+        'https://zedex-jfizb1h1h-ganeshs-projects-761b96d7.vercel.app'
+    ],    methods: [ "GET", "POST", "PUT", "DELETE","OPTIONS" ],
     credentials: true
 }))
 
