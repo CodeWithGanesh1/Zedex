@@ -69,7 +69,7 @@ const SellerOrders = () => {
         try {
             const trackingNumber = trackingInputs[razorpayOrderId] || undefined
             const res = await axios.patch(
-                `/api/cart/payment/order/${razorpayOrderId}/shipping`,
+                `${BACKEND_URL}/api/cart/payment/order/${razorpayOrderId}/shipping`,
                 { shippingStatus, trackingNumber },
                 { withCredentials: true }
             )
