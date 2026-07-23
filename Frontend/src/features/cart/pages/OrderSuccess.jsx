@@ -23,6 +23,11 @@ const OrderSuccess = () => {
     const [payment, setPayment] = useState(null)
     const [loading, setLoading] = useState(true)
 
+    const BACKEND_URL = import.meta.env.PROD 
+        ? "https://zedex-2.onrender.com" 
+        : ""
+
+
     const queryParams = new URLSearchParams(location.search)
     const orderId = queryParams.get("order_id") || "SN-00000"
 
