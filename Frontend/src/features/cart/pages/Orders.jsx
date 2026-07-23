@@ -47,7 +47,8 @@ const Orders = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-const res = await axios.get(`${BACKEND_URL}/api/cart/payment/my-orders`, { withCredentials: true })                if (res.data.success) setOrders(res.data.orders)
+const res = await axios.get(`${BACKEND_URL}/api/cart/payment/my-orders`, { withCredentials: true })             
+   if (res.data.success) setOrders(res.data.orders)
             } catch (err) {
                 console.error("Orders fetch failed:", err)
             } finally {
