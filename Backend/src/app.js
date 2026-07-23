@@ -16,8 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: ["https://zedex-roan.vercel.app", "http://localhost:5173"],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    origin: "https://zedex-roan.vercel.app",
+    methods: [ "GET", "POST", "PUT", "DELETE" ],
     credentials: true
 }))
 
@@ -27,7 +27,7 @@ app.use(passport.initialize());
 passport.use(new GoogleStrategy({
     clientID: config.GOOGLE_CLIENT_ID,
     clientSecret: config.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://zedex-2.onrender.com/api/auth/google/callback" 
+    callbackURL: config.GOOGLE_CALLBACK_URL 
 }, (accessToken, refreshToken, profile, done) => {
     return done(null, profile);
 }))
