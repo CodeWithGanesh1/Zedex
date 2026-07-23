@@ -36,6 +36,11 @@ const formatDate = (date) => {
 
 const SellerOrders = () => {
     const navigate = useNavigate()
+
+    const BACKEND_URL = import.meta.env.PROD
+        ? "https://zedex-2.onrender.com"
+        : ""
+
     const [orders, setOrders] = useState([])
     const [loading, setLoading] = useState(true)
     const [expandedOrder, setExpandedOrder] = useState(null)
@@ -50,7 +55,7 @@ const SellerOrders = () => {
 
     const fetchOrders = async () => {
         try {
-            const res = await axios.get('/api/cart/payment/all-orders', { withCredentials: true })
+            const res = await axios.get('${BACKEND_URL}/api/cart/payment/all-orders', { withCredentials: true })
             if (res.data.success) setOrders(res.data.orders)
         } catch (err) {
             console.error("Orders fetch failed:", err)
