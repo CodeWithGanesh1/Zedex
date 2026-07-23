@@ -45,6 +45,11 @@ const formatDate = (date) => {
 
 const OrderDetail = () => {
     const { orderId } = useParams()
+
+    const BACKEND_URL = import.meta.env.PROD 
+    ? "https://zedex-2.onrender.com" 
+    : ""
+
     const [payment, setPayment] = useState(null)
     const [loading, setLoading] = useState(true)
     const [cancelling, setCancelling] = useState(false)
@@ -53,8 +58,7 @@ const OrderDetail = () => {
     useEffect(() => {
         const fetchOrder = async () => {
             try {
-                const res = await axios.get(`/api/cart/payment/order/${orderId}`, { withCredentials: true })
-                if (res.data.success) setPayment(res.data.payment)
+const res = await axios.get(`${BACKEND_URL}/api/cart/payment/order/${orderId}`, { withCredentials: true })                if (res.data.success) setPayment(res.data.payment)
             } catch (err) {
                 console.error("Order fetch failed:", err)
             } finally {

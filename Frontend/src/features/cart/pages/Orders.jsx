@@ -23,6 +23,8 @@ const statusConfig = {
     delivered: { label: 'Delivered', color: '#4a7c59' },
 }
 
+
+
 const formatPrice = (amount, currency = 'INR') =>
     new Intl.NumberFormat('en-IN', { style: 'currency', currency, maximumFractionDigits: 0 }).format(amount)
 
@@ -35,13 +37,17 @@ const formatDate = (date) => {
 
 const Orders = () => {
     const [orders, setOrders] = useState([])
+
+    const BACKEND_URL = import.meta.env.PROD 
+    ? "https://zedex-2.onrender.com" 
+    : ""
+
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const res = await axios.get('/api/cart/payment/my-orders', { withCredentials: true })
-                if (res.data.success) setOrders(res.data.orders)
+const res = await axios.get(`${BACKEND_URL}/api/cart/payment/my-orders`, { withCredentials: true })                if (res.data.success) setOrders(res.data.orders)
             } catch (err) {
                 console.error("Orders fetch failed:", err)
             } finally {
