@@ -35,8 +35,7 @@ const OrderSuccess = () => {
     useEffect(() => {
         const fetchPayment = async () => {
             try {
-                const res = await axios.get(`/api/cart/payment/order/${orderId}`, {
-                    withCredentials: true
+const res = await axios.get(`${BACKEND_URL}/api/cart/payment/order/${orderId}`, {                    withCredentials: true
                 })
                 if (res.data.success) {
                     setPayment(res.data.payment)
