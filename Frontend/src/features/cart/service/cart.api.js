@@ -4,8 +4,6 @@ const BACKEND_URL = import.meta.env.PROD
     ? "https://zedex-2.onrender.com" 
     : "";
 
-    const BACKEND_URL = "";
-
 const authApiInstance = axios.create({
     baseURL: `${BACKEND_URL}/api/auth/`,
     withCredentials: true,
