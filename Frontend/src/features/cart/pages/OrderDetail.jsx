@@ -75,7 +75,7 @@ const res = await axios.get(`${BACKEND_URL}/api/cart/payment/order/${orderId}`, 
         setCancelError(null)
         try {
             const res = await axios.patch(
-                `/api/cart/payment/order/${orderId}/cancel`,
+    `${BACKEND_URL}/api/cart/payment/order/${orderId}/cancel`,
                 {},
                 { withCredentials: true }
             )
